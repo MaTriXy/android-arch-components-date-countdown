@@ -35,12 +35,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
         Event item = items.get(position);
-        holder.eventTextView.setText(item.getName());
-        holder.descriptionTextView.setText(item.getDescription());
-        holder.countdownTextView.setText(context.getString(R.string.days_until, item.getDaysUntil()));
+        holder.getEventTextView().setText(item.getName());
+        holder.getDescriptionTextView().setText(item.getDescription());
+        holder.getCountdownTextView().setText(context.getString(R.string.days_until, item.getDaysBetween()));
         holder.itemView.setTag(item);
-        holder.deleteButton.setTag(item);
-        holder.deleteButton.setOnClickListener(deleteClickListener);
+        holder.getDeleteButton().setTag(item);
+        holder.getDeleteButton().setOnClickListener(deleteClickListener);
         holder.itemView.setOnClickListener(viewClickListener);
     }
 

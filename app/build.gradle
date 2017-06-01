@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -50,9 +51,9 @@ dependencies {
     compile "android.arch.lifecycle:extensions:${arch_version}"
     compile "android.arch.persistence.room:runtime:${arch_version}"
 
-    annotationProcessor "com.google.dagger:dagger-compiler:${dagger_version}"
-    annotationProcessor "android.arch.lifecycle:compiler:${arch_version}"
-    annotationProcessor "android.arch.persistence.room:compiler:${arch_version}"
+    kapt "com.google.dagger:dagger-compiler:${dagger_version}"
+    kapt "android.arch.lifecycle:compiler:${arch_version}"
+    kapt "android.arch.persistence.room:compiler:${arch_version}"
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.6.3'
@@ -84,4 +85,8 @@ dependencies {
     androidTestCompile("com.android.support.test.espresso:espresso-core:${espresso_version}") {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
