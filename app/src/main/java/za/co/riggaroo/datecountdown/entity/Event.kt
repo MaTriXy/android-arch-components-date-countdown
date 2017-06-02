@@ -16,5 +16,4 @@ data class Event(
 
 ) {
     fun getDaysBetween() = ChronoUnit.DAYS.between(LocalDateTime.now(), date)
-
 }

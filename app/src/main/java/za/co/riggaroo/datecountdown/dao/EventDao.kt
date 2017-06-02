@@ -10,6 +10,7 @@ import za.co.riggaroo.datecountdown.entity.Event
 @Dao
 interface EventDao {
 
+    //kotlin does weird renaming of parameters.
     @Query("SELECT * FROM events WHERE date > :p0")
     fun getEvents(minDate: LocalDateTime): LiveData<List<Event>>
 

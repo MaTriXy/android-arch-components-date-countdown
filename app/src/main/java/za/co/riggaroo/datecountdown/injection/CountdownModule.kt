@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import za.co.riggaroo.datecountdown.CountdownApplication
 import za.co.riggaroo.datecountdown.db.EventDatabase
+import za.co.riggaroo.datecountdown.repository.EventRepository
 import za.co.riggaroo.datecountdown.repository.EventRepositoryImpl
 import javax.inject.Singleton
 
@@ -18,12 +19,12 @@ import javax.inject.Singleton
 class CountdownModule(private val countdownApplication: CountdownApplication) {
 
     @Provides
-    fun applicationContext() = countdownApplication
+    fun applicationContext(): Context = countdownApplication
 
 
     @Provides
     @Singleton
-    fun providesEventRepository(eventDatabase: EventDatabase) = EventRepositoryImpl(eventDatabase)
+    fun providesEventRepository(eventDatabase: EventDatabase): EventRepository = EventRepositoryImpl(eventDatabase)
 
     @Provides
     @Singleton
