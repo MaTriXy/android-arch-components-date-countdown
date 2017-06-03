@@ -1,7 +1,5 @@
 package za.co.riggaroo.datecountdown.ui.event.add
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,36 +17,14 @@ class AddEventViewModel : ViewModel(), CountdownComponent.Injectable {
 
     @Inject
     lateinit var eventRepository: EventRepository
-    private val eventName = MutableLiveData<String>()
-    private val eventDescription = MutableLiveData<String>()
-    val eventDateTime = MutableLiveData<LocalDateTime>()
+    var eventName = String()
+    var eventDescription = String()
 
-    init {
-        eventDateTime.value = LocalDateTime.now()
-    }
+    var eventDateTime = LocalDateTime.now()
 
-    fun getEventName(): LiveData<String> {
-        return eventName
-    }
-
-    fun setEventName(eventName: String) {
-        this.eventName.value = eventName
-    }
-
-    fun getEventDescription(): LiveData<String> {
-        return eventDescription
-    }
-
-    fun setEventDescription(eventDescription: String) {
-        this.eventDescription.value = eventDescription
-    }
-
-    fun setEventDateTime(eventDateTime: LocalDateTime) {
-        this.eventDateTime.value = eventDateTime
-    }
 
     fun addEvent() {
-        val event = Event(0, eventName.value!!, eventDescription.value!!, eventDateTime.value!!)
+        val event = Event(0, eventName, eventDescription, eventDateTime)
         eventRepository.addEvent(event).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : CompletableObserver {

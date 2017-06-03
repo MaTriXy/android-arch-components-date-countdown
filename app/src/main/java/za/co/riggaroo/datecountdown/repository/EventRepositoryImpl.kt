@@ -12,8 +12,7 @@ import javax.inject.Inject
  * *
  * @since 2017/04/21.
  */
-class EventRepositoryImpl public @Inject constructor(
-        var eventDatabase: EventDatabase) : EventRepository {
+class EventRepositoryImpl @Inject constructor(var eventDatabase: EventDatabase) : EventRepository {
 
     override fun addEvent(event: Event): Completable {
         return Completable.fromAction { eventDatabase.eventDao().addEvent(event) }

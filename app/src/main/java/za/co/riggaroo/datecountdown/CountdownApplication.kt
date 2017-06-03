@@ -5,6 +5,7 @@ import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
 
 import timber.log.Timber
+import za.co.riggaroo.datecountdown.injection.ApplicationModule
 import za.co.riggaroo.datecountdown.injection.CountdownComponent
 import za.co.riggaroo.datecountdown.injection.CountdownModule
 import za.co.riggaroo.datecountdown.injection.DaggerCountdownComponent
@@ -12,7 +13,8 @@ import za.co.riggaroo.datecountdown.injection.DaggerCountdownComponent
 open class CountdownApplication : Application() {
 
     val countDownComponent: CountdownComponent = DaggerCountdownComponent.builder()
-            .countdownModule(CountdownModule(this))
+            .applicationModule(ApplicationModule(this))
+            .countdownModule(CountdownModule())
             .build()
 
     override fun onCreate() {

@@ -11,7 +11,7 @@ import javax.inject.Singleton
  * @since 2017/05/11.
  */
 @Singleton
-@Component(modules = arrayOf(CountdownModule::class))
+@Component(modules = arrayOf(CountdownModule::class, ApplicationModule::class))
 interface CountdownComponent {
 
     fun inject(eventListViewModel: EventListViewModel)

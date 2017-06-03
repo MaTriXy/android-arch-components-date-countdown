@@ -7,7 +7,7 @@ import android.widget.TextView
 
 import za.co.riggaroo.datecountdown.R
 
-internal class EventViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+class EventViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
     var eventTextView: TextView = v.findViewById(R.id.text_view_event_name) as TextView
     var countdownTextView: TextView = v.findViewById(R.id.text_view_countdown) as TextView

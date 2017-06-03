@@ -23,69 +23,19 @@ import za.co.riggaroo.datecountdown.injection.CountdownFactory
 class AddEventFragment : LifecycleFragment(), DatePickerDialog.OnDateSetListener {
 
 
-    private var editTextTitle: EditText? = null
-    private var editTextDescription: EditText? = null
-    private var buttonAddEvent: Button? = null
-    private var buttonSetDate: Button? = null
-    private var textViewCurrentDate: TextView? = null
-    private var addEventViewModel: AddEventViewModel? = null
+    private lateinit var editTextTitle: EditText
+    private lateinit var editTextDescription: EditText
+    private lateinit var buttonAddEvent: Button
+    private lateinit var buttonSetDate: Button
+    private lateinit var textViewCurrentDate: TextView
+    private lateinit var addEventViewModel: AddEventViewModel
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_add_event, container, false)
-
         setupViews(view)
         setupClickListeners()
         setupViewModel()
         return view
-    }
-
-    private fun setupViewModel() {
-        val countdownApplication = activity.application as CountdownApplication
-        addEventViewModel = ViewModelProviders.of(this, CountdownFactory(countdownApplication))
-                .get(AddEventViewModel::class.java)
-        editTextTitle!!.setText(addEventViewModel!!.getEventName().value)
-        editTextDescription!!.setText(addEventViewModel!!.getEventDescription().value)
-        textViewCurrentDate!!.text = addEventViewModel!!.eventDateTime.value!!.toString()
-    }
-
-    private fun setupClickListeners() {
-        editTextTitle!!.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                addEventViewModel!!.setEventName(s.toString())
-            }
-        })
-        editTextDescription!!.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                addEventViewModel!!.setEventDescription(s.toString())
-            }
-        })
-        buttonAddEvent!!.setOnClickListener { v ->
-            addEventViewModel!!.addEvent()
-            activity.finish()
-        }
-        buttonSetDate!!.setOnClickListener { v ->
-            val localDateTime = addEventViewModel!!.eventDateTime.value
-            val datePickerDialog = DatePickerDialog(
-                    context, this, localDateTime!!.year, localDateTime.monthValue - 1, localDateTime.dayOfMonth)
-
-            datePickerDialog.show()
-        }
     }
 
     private fun setupViews(view: View) {
@@ -96,10 +46,58 @@ class AddEventFragment : LifecycleFragment(), DatePickerDialog.OnDateSetListener
         textViewCurrentDate = view.findViewById(R.id.text_view_date_set) as TextView
     }
 
-    override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
-        addEventViewModel!!.setEventDateTime(LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0))
-        textViewCurrentDate!!.text = addEventViewModel!!.eventDateTime.value!!.toString()
+    private fun setupViewModel() {
+        val countdownApplication = activity.application as CountdownApplication
+        addEventViewModel = ViewModelProviders.of(this, CountdownFactory(countdownApplication))
+                .get(AddEventViewModel::class.java)
+        editTextTitle.setText(addEventViewModel.eventName)
+        editTextDescription.setText(addEventViewModel.eventDescription)
+        textViewCurrentDate.text = addEventViewModel.eventDateTime.toString()
     }
 
+    private fun setupClickListeners() {
+        editTextTitle.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                addEventViewModel.eventName = s.toString()
+            }
+        })
+        editTextDescription.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                addEventViewModel.eventDescription = s.toString()
+            }
+        })
+        buttonAddEvent.setOnClickListener { _ ->
+            addEventViewModel.addEvent()
+            activity.finish()
+        }
+        buttonSetDate.setOnClickListener { _ ->
+            val localDateTime = addEventViewModel.eventDateTime
+            val datePickerDialog = DatePickerDialog(
+                    context, this, localDateTime!!.year, localDateTime.monthValue - 1, localDateTime.dayOfMonth)
+
+            datePickerDialog.show()
+        }
+    }
+
+    override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
+        addEventViewModel.eventDateTime = LocalDateTime.of(year, month + 1, dayOfMonth, 0, 0)
+        textViewCurrentDate.text = addEventViewModel.eventDateTime.toString()
+    }
 
 }

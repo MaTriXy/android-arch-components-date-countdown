@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import za.co.riggaroo.datecountdown.CountdownApplication
 import za.co.riggaroo.datecountdown.db.EventDatabase
 import za.co.riggaroo.datecountdown.repository.EventRepository
 import za.co.riggaroo.datecountdown.repository.EventRepositoryImpl
@@ -16,11 +15,7 @@ import javax.inject.Singleton
  * @since 2017/05/11.
  */
 @Module
-class CountdownModule(private val countdownApplication: CountdownApplication) {
-
-    @Provides
-    fun applicationContext(): Context = countdownApplication
-
+class CountdownModule {
 
     @Provides
     @Singleton
