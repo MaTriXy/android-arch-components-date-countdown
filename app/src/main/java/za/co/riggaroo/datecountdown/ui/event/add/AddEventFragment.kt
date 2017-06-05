@@ -22,7 +22,6 @@ import za.co.riggaroo.datecountdown.injection.CountdownFactory
 
 class AddEventFragment : LifecycleFragment(), DatePickerDialog.OnDateSetListener {
 
-
     private lateinit var editTextTitle: EditText
     private lateinit var editTextDescription: EditText
     private lateinit var buttonAddEvent: Button

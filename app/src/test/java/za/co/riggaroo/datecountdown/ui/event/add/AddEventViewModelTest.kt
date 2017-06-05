@@ -19,10 +19,10 @@ import za.co.riggaroo.datecountdown.repository.EventRepository
  */
 class AddEventViewModelTest {
 
-    lateinit internal var addEventViewModel: AddEventViewModel
+    lateinit var addEventViewModel: AddEventViewModel
 
     @Mock
-    lateinit internal var eventRepository: EventRepository
+    lateinit var eventRepository: EventRepository
 
     @Rule
     var instantExecutorRule = InstantTaskExecutorRule()

@@ -12,7 +12,7 @@ import za.co.riggaroo.datecountdown.injection.DaggerCountdownComponent
 
 open class CountdownApplication : Application() {
 
-    val countDownComponent: CountdownComponent = DaggerCountdownComponent.builder()
+    open val countDownComponent: CountdownComponent = DaggerCountdownComponent.builder()
             .applicationModule(ApplicationModule(this))
             .countdownModule(CountdownModule())
             .build()
