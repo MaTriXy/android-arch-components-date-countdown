@@ -24,8 +24,8 @@ class AddEventViewModelTest {
     @Mock
     lateinit var eventRepository: EventRepository
 
-    @Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
+    @Rule @JvmField
+    public val instantExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun setup() {
@@ -45,11 +45,13 @@ class AddEventViewModelTest {
 
     companion object {
         @BeforeClass
+        @JvmStatic
         fun setUpClass() {
             RxAndroidPlugins.setInitMainThreadSchedulerHandler { _ -> Schedulers.trampoline() }
         }
 
         @AfterClass
+        @JvmStatic
         fun tearDownClass() {
             RxAndroidPlugins.reset()
         }
